@@ -10,6 +10,7 @@ import Setup from "@/pages/Setup";
 import Home from "@/pages/Home";
 import Shifts from "@/pages/Shifts";
 import Settings from "@/pages/Settings";
+import Import from "@/pages/Import";
 import AppLayout from "@/components/AppLayout";
 import NotFound from "@/pages/not-found";
 
@@ -37,6 +38,7 @@ function AuthenticatedRouter() {
       <Switch>
         <Route path="/" component={Home} />
         <Route path="/shifts" component={Shifts} />
+        <Route path="/import" component={Import} />
         <Route path="/settings" component={Settings} />
         <Route component={NotFound} />
       </Switch>
