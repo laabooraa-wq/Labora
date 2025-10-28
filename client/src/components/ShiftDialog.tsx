@@ -137,16 +137,18 @@ export default function ShiftDialog({
     };
 
     if (kind === 'normal') {
+      // Always start with the selected date for start time
       shiftData.startISO = combineDateAndTime(dateISO, startTime, profile.timezone);
-      shiftData.endISO = combineDateAndTime(dateISO, endTime, profile.timezone);
       
-      // Handle midnight crossing
+      // For end time, check if it crosses midnight
+      let endDateISO = dateISO;
       if (endTime < startTime) {
+        // Shift crosses midnight - use next day for end time
         const nextDay = new Date(dateISO);
         nextDay.setDate(nextDay.getDate() + 1);
-        const nextDayISO = nextDay.toISOString().split('T')[0];
-        shiftData.endISO = combineDateAndTime(nextDayISO, endTime, profile.timezone);
+        endDateISO = nextDay.toISOString().split('T')[0];
       }
+      shiftData.endISO = combineDateAndTime(endDateISO, endTime, profile.timezone);
       
       shiftData.breaksMinutes = parseInt(breaks) || 0;
       shiftData.complementaryMinutes = parseInt(complementary) || 0;
@@ -202,27 +204,33 @@ export default function ShiftDialog({
     }
 
     try {
+      // Build times with same logic as handleSubmit
+      const startISO = combineDateAndTime(dateISO, startTime, profile.timezone);
+      
+      let endDateISO = dateISO;
+      if (endTime < startTime) {
+        // Shift crosses midnight
+        const nextDay = new Date(dateISO);
+        nextDay.setDate(nextDay.getDate() + 1);
+        endDateISO = nextDay.toISOString().split('T')[0];
+      }
+      const endISO = combineDateAndTime(endDateISO, endTime, profile.timezone);
+
       const tempShift: Partial<Shift> = {
         kind: 'normal',
         uid: profile.uid,
         dateISO,
-        startISO: combineDateAndTime(dateISO, startTime, profile.timezone),
-        endISO: combineDateAndTime(dateISO, endTime, profile.timezone),
+        startISO,
+        endISO,
         breaksMinutes: parseInt(breaks) || 0,
         complementaryMinutes: parseInt(complementary) || 0,
         overtimeMinutes: parseInt(overtime) || 0,
       };
 
-      if (endTime < startTime) {
-        const nextDay = new Date(dateISO);
-        nextDay.setDate(nextDay.getDate() + 1);
-        const nextDayISO = nextDay.toISOString().split('T')[0];
-        tempShift.endISO = combineDateAndTime(nextDayISO, endTime, profile.timezone);
-      }
-
       const calc = computeShiftPay(tempShift as Shift, profile);
       return formatEuros(calc.euros);
-    } catch {
+    } catch (error) {
+      console.error('Preview calc error:', error);
       return '-';
     }
   };
