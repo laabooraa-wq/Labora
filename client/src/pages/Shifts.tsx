@@ -5,13 +5,18 @@ import { getAllShifts } from '@/lib/firestore';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { formatEuros, formatMinutesAsHours } from '@/lib/money';
 import { formatDateES } from '@/lib/datetime';
 import { computeShiftPay } from '@/lib/calc';
+import { exportToCSV, exportToTXT, exportSummary } from '@/lib/export';
 import { startOfDay, endOfDay, startOfWeek, endOfWeek, startOfMonth, endOfMonth, startOfYear, endOfYear, parse } from 'date-fns';
+import { Download, Upload } from 'lucide-react';
+import { Link } from 'wouter';
 import type { Shift, DayKind } from '@shared/schema';
 
 export default function Shifts() {
@@ -129,9 +134,38 @@ export default function Shifts() {
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6 space-y-6">
       {/* Header */}
-      <div>
-        <h1 className="text-2xl font-bold">Turnos</h1>
-        <p className="text-muted-foreground">Vista detallada de todos tus turnos y estadísticas</p>
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-2xl font-bold">Turnos</h1>
+          <p className="text-muted-foreground">Vista detallada de todos tus turnos y estadísticas</p>
+        </div>
+        <div className="flex gap-2">
+          <Link href="/import">
+            <Button variant="outline" data-testid="button-import">
+              <Upload className="h-4 w-4 mr-2" />
+              Importar
+            </Button>
+          </Link>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="outline" data-testid="button-export">
+                <Download className="h-4 w-4 mr-2" />
+                Exportar
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuItem onClick={() => exportToCSV(periodShifts, profile)}>
+                Exportar como CSV
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => exportToTXT(periodShifts, profile)}>
+                Exportar como TXT
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => exportSummary(periodShifts, profile)}>
+                Exportar resumen
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
       </div>
 
       {/* Filters */}
