@@ -1,0 +1,355 @@
+Objetivo:
+Construir una app web responsive (PC y móvil) para gestionar turnos laborales y pagos con Google Login, calendario mensual estético, cálculo de nocturnidad/extra/complementaria, días especiales (descanso/vacaciones/compensatoria/baja), notas por franja, e importador con presets y opción de “usar tarifa del archivo”. Deploy en Netlify.
+
+Stack:
+
+Frontend: React + Vite + TypeScript + TailwindCSS (SPA).
+
+Estado: React Query (opcional) + contextos ligeros.
+
+Fechas: date-fns (TZ manejada con Intl; almacenar en UTC).
+
+Auth/DB: Firebase Auth (Google) + Firestore (subcolección users/{uid}/shifts).
+
+PWA (fase 2, scaffolding ok).
+
+Formato: Intl.DateTimeFormat('es-ES'), Intl.NumberFormat('es-ES',{currency:'EUR'}).
+
+Zona horaria de usuario: Europe/Madrid (configurable).
+
+Alcance funcional (MVP cerrado)
+
+Bienvenida (pública)
+
+Título: “Schedule Paysheet”.
+
+Descripción: “Gestiona tus turnos laborales y pagos al completo de una forma sencilla.”
+
+Botón Iniciar sesión con Google (obligatorio). Enlaces legales.
+
+Asistente inicial (obligatorio tras primer login)
+
+Tarifas: base, extra, nocturna (€/h).
+
+Franja nocturna (HH:mm → HH:mm, admite cruce 00:00).
+
+Preferencias: tema (claro/oscuro/sistema), moneda (EUR), zona horaria (auto + editable).
+
+Contrato: hoursPerWeek (H_sem), workDaysPerWeek (D_sem).
+
+Calendario principal
+
+Vista Mes (custom), navegación por mes/año.
+
+Toggle estética: tabla clásica ↔ celdas verticales.
+
+Badges por día (resumen de turnos y €).
+
+FAB “+” (añadir turno/día especial).
+
+Crear/editar turno (turnos independientes)
+
+Tipo de día (kind): normal | descanso | vacaciones | compensatoria | baja.
+
+kind = normal:
+
+Fecha, hora inicio/fin (cruce 00:00 permitido).
+
+breaksMinutes (pausa única).
+
+Colas: complementaryMinutes y overtimeMinutes (al final del turno).
+
+isExtraShift + extraShiftInfo.colleagueName?.
+
+Etiqueta visual: generico | complementario | adquirido.
+
+Notas por franja (annotations):
+scope: whole | complementaryTail | overtimeTail | range(startOffsetMin,endOffsetMin).
+
+kind ≠ normal (días especiales):
+
+Sin horas; mostrar pago estimado.
+
+vacaciones/compensatoria: pagan media diaria H_dia = H_sem / D_sem (minutos = H_dia×60), con tarifa base. Campo override paidMinutesOverride para medio día, etc.
+
+descanso: €0.
+
+baja (MVP): €0 (dejar estructura para futuro).
+
+Lista de turnos
+
+Tabs: Día / Semana / Mes / Año.
+
+Filtros: rango, etiqueta, kind, isExtraShift.
+
+Totales por rango: horas y € (desglose base/extra/complementaria/nocturna + PTO).
+
+Configuración
+
+Tarifas, franja nocturna, tema, moneda, zona horaria.
+
+Contrato: hoursPerWeek, workDaysPerWeek.
+
+Importar / Exportar.
+
+Cerrar sesión.
+
+Importar turnos (CSV/TXT/PDF)
+
+Presets (aplica a todas las filas del lote; editable por lote en preview):
+a) Genéricos.
+b) Complementarias (cola): añade X minutos al final.
+c) Extra (cola): añade X minutos al final.
+d) Turnos extra (cogidos a compañero): isExtraShift=true (+ campo opcional nombre → crea nota automática).
+
+Tarifa del archivo (modo):
+
+No usar (por defecto): recalcular con tarifas de la app.
+
+Base solo: usar Precio del archivo como base; extra/nocturna/complementaria toman las de la app.
+
+Escalar todas: a partir de relaciones de la app (k_extra=extra/base, k_night=night/base, k_comp=complementary?/base).
+
+(Avanzado) Ajustar a “Importe”: fija eurosOverride si hay Importe en la fila.
+
+Soporte PDF “WorkTime”: detectar cabecera Fecha | Inicio | Fin | Descanso | Trabajadas | Precio | Importe, ignorar totales/00:00–00:00, parsear d/M/yyyy, cruce 00:00 si fin<inicio.
+
+Vista previa: muestra filas parseadas, preset aplicado, tarifas efectivas, nuestro € vs Importe, solapes y conflictos con días especiales.
+
+Resolución de solapes: saltar / insertar igual / reemplazar.
+
+Días especiales: mantener o sustituir.
+
+Exportar
+
+JSON completo.
+
+CSV: fecha, inicio, fin, descanso, minutos base/extra/complementaria/nocturna, horas totales, €, kind, isExtraShift, notas (compactas).
+
+ICS (1-vía): eventos sin € (opcional en descripción).
+
+Reglas de cálculo (obligatorias)
+
+Almacena tiempos en UTC y renderiza en TZ del perfil (Europe/Madrid por defecto).
+
+Trabaja en minutos.
+
+Prioridad por minuto: nocturna > extra > complementaria > normal.
+
+Pausa: breaksMinutes se resta antes de clasificar.
+
+Colas: complementaryMinutes y overtimeMinutes se aplican al final del turno. Si caen en franja nocturna, se pagan como nocturnos (la nocturna manda).
+
+Turno extra (isExtraShift): etiqueta para informes; no altera tarifas por sí misma.
+
+PTO (vacaciones/compensatoria):
+
+H_dia = H_sem / D_sem; minutos = paidMinutesOverride ?? round(H_dia*60); € = horas * tarifa base (con overrideRates.base si viene de import “base solo/escalar”).
+
+No aplica nocturna/extra/complementaria.
+
+Descanso: €=0. Baja (MVP): €=0.
+
+Cambios de tarifas/franja: recalcular histórico (invalidar calcCache y recomputar bajo demanda).
+
+Validaciones
+
+Duración efectiva > 0.
+
+complementaryMinutes + overtimeMinutes ≤ duración efectiva.
+
+Sin solapes (bloquear o pedir confirmación).
+
+Si existe un día especial en esa fecha: al crear turno normal, pedir confirmación para sustituir; en import, ofrecer mantener/sustituir.
+
+Notas de range: 0 ≤ startOffsetMin < endOffsetMin ≤ duración.
+
+Import:
+
+Ignorar filas 00:00–00:00.
+
+Si modo “base solo/escalar” y falta Precio → degradar a “No usar” + aviso.
+
+Si “ajustar a Importe” y falta Importe → ignorar lock + aviso.
+
+Estructura del proyecto
+/src
+  /components
+    CalendarMonth.tsx
+    ShiftBadge.tsx
+    AddShiftModal.tsx
+    EditShiftModal.tsx
+    DayKindSelector.tsx
+    NotesEditor.tsx
+    ImportWizard.tsx
+    SettingsForm.tsx
+    Toolbar.tsx
+  /pages
+    Welcome.tsx
+    Home.tsx        // calendario + FAB
+    Shifts.tsx      // lista + filtros
+    Settings.tsx
+  /lib
+    datetime.ts     // UTC<->TZ, cruce medianoche, HH:mm helpers
+    calc.ts         // motor (prioridades, colas, PTO)
+    importers/
+      worktime-pdf.ts  // parser PDF WorkTime
+      csv.ts           // parser genérico CSV (mapeo columnas)
+      txt.ts           // parser por columnas fijas
+    money.ts
+    validations.ts
+    firestore.ts    // CRUD + reglas de invalidación calcCache
+    uuid.ts
+  /models
+    types.ts
+  App.tsx
+  main.tsx
+  theme.css
+  firebase.ts
+
+Modelos (TypeScript)
+export type DayKind = 'normal' | 'descanso' | 'vacaciones' | 'compensatoria' | 'baja';
+export type ShiftType = 'generico' | 'complementario' | 'adquirido';
+export type AnnotationScope = 'whole' | 'complementaryTail' | 'overtimeTail' | 'range';
+
+export interface UserProfile {
+  uid: string; email: string;
+  currency: 'EUR';
+  timezone: string; // "Europe/Madrid"
+  theme: 'light'|'dark'|'system';
+  rates: { base:number; extra:number; night:number; complementary?:number };
+  nightWindow: { from:string; to:string };
+  contract: { hoursPerWeek:number; workDaysPerWeek:number };
+  createdAtISO: string; updatedAtISO: string;
+}
+
+export interface Annotation {
+  id: string;
+  scope: AnnotationScope;
+  startOffsetMin?: number;
+  endOffsetMin?: number;
+  text: string;
+  tags?: string[];
+  createdAtISO: string;
+}
+
+export interface Shift {
+  id: string; uid: string;
+  kind: DayKind;
+  dateISO: string;             // YYYY-MM-DD (TZ del usuario)
+  // kind === 'normal':
+  startISO?: string;           // UTC
+  endISO?: string;             // UTC
+  breaksMinutes?: number;
+  complementaryMinutes?: number;
+  overtimeMinutes?: number;
+  isExtraShift?: boolean;
+  extraShiftInfo?: { colleagueName?: string };
+  type?: ShiftType;
+  annotations?: Annotation[];
+  // kind !== 'normal':
+  paidMinutesOverride?: number;
+  // import overrides:
+  overrideRates?: { base?:number; extra?:number; night?:number; complementary?:number };
+  eurosOverride?: number;
+  source?: {
+    origin: 'manual'|'import';
+    fileName?: string; fileRow?: number;
+    filePrice?: number; fileAmount?: number;
+    appliedMode?: 'none'|'file-base'|'file-scaled'|'file-amount-lock';
+  };
+  calcCache?: { baseMin:number; extraMin:number; nightMin:number; euros:number };
+  createdAtISO: string; updatedAtISO: string;
+}
+
+
+Colecciones Firestore
+
+users/{uid} (perfil)
+
+users/{uid}/shifts/{id} (turnos/días especiales)
+Índices: (uid, dateISO asc) y (uid, createdAtISO desc).
+
+Motor de cálculo (pseudocódigo clave)
+function computeShiftEuros(shift: Shift, profile: UserProfile) {
+  if (shift.kind !== 'normal') return computePTOorRest(shift, profile);
+
+  const tariffs = { ...profile.rates, ...shift.overrideRates };
+  const timeline = expandMinutes(shift.startISO, shift.endISO); // maneja cruce
+  let minNormal=0, minNight=0;
+
+  for (const minute of timeline) {
+    if (!isInBreak(minute, shift.breaksMinutes)) {
+      if (isInNight(minute, profile.nightWindow, profile.timezone)) minNight++;
+      else minNormal++;
+    }
+  }
+
+  // aplicar colas complementaria y luego extra, sin romper prioridad nocturna
+  let comp = Math.min(shift.complementaryMinutes ?? 0, minNormal);
+  minNormal -= comp;
+  let extra = Math.min(shift.overtimeMinutes ?? 0, minNormal);
+  minNormal -= extra;
+
+  // los “restos” de comp/extra que caigan en nocturna NO desplazan minNight (nocturna manda)
+
+  const euros =
+    (minNormal/60)*tariffs.base +
+    (comp/60)*(tariffs.complementary ?? tariffs.base) +
+    (extra/60)*tariffs.extra +
+    (minNight/60)*tariffs.night;
+
+  return {
+    baseMin: minNormal, extraMin: extra, nightMin: minNight,
+    euros: shift.eurosOverride ?? round2(euros)
+  };
+}
+
+function computePTOorRest(shift: Shift, profile: UserProfile) {
+  if (shift.kind === 'descanso' || shift.kind === 'baja') {
+    return { baseMin:0, extraMin:0, nightMin:0, euros:0 };
+  }
+  const base = (shift.overrideRates?.base ?? profile.rates.base);
+  const Hdia = profile.contract.hoursPerWeek / profile.contract.workDaysPerWeek;
+  const paidMin = shift.paidMinutesOverride ?? Math.round(Hdia*60);
+  const euros = (paidMin/60) * base;
+  return { baseMin: paidMin, extraMin:0, nightMin:0, euros: round2(euros) };
+}
+
+Criterios de aceptación (QA)
+
+Crear turno normal con cruce 00:00, pausa, cola complementaria y extra → cálculo correcto; nocturna manda.
+
+Crear vacaciones sin override y con override (medio día) → € = base × horas PTO.
+
+Marcar descanso → €0, bloquea turnos ese día (con confirmación para sustituir).
+
+Notas por franja: whole, overtimeTail, complementaryTail, range con validación.
+
+Import PDF WorkTime/CSV:
+
+Ignora filas 00:00–00:00 y totales.
+
+Cruce 00:00 reconocido.
+
+Preset “Extra 30’” aplicado como cola.
+
+Modo Base solo usa Precio por fila; Escalar respeta relaciones; Ajustar a Importe fija eurosOverride.
+
+Resolver solapes y días especiales según elección.
+
+Cambio de tarifas → recálculo histórico visible de inmediato.
+
+Export CSV/JSON/ICS conforme a lo descrito.
+
+Deploy en Netlify
+
+Variables de entorno Firebase (VITE_...).
+
+/_redirects → /* /index.html 200 (SPA).
+
+Comando build: vite build.
+
+(Fase 2) Habilitar PWA (manifest + SW).
+
+Importante: Mantén toda hora persistida en UTC y usa la TZ del perfil solo para mostrar/parsear. Testea días de cambio de hora (horario de verano).
