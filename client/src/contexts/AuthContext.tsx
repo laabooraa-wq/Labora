@@ -21,30 +21,39 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Handle redirect result on mount
+    let unsubscribe: (() => void) | undefined;
+    
+    // First, handle redirect result (if coming back from Google OAuth)
     getRedirectResult(auth)
       .then((result) => {
         if (result?.user) {
           // User just signed in via redirect
-          loadUserProfile(result.user);
+          console.log('Redirect result received, loading profile...');
+          setUser(result.user);
+          return loadUserProfile(result.user);
         }
       })
       .catch((error) => {
         console.error('Redirect error:', error);
+      })
+      .finally(() => {
+        // After handling redirect, listen to auth state changes
+        unsubscribe = onAuthStateChanged(auth, async (user) => {
+          setUser(user);
+          if (user) {
+            await loadUserProfile(user);
+          } else {
+            setProfile(null);
+            setLoading(false);
+          }
+        });
       });
 
-    // Listen to auth state changes
-    const unsubscribe = onAuthStateChanged(auth, async (user) => {
-      setUser(user);
-      if (user) {
-        await loadUserProfile(user);
-      } else {
-        setProfile(null);
-        setLoading(false);
+    return () => {
+      if (unsubscribe) {
+        unsubscribe();
       }
-    });
-
-    return () => unsubscribe();
+    };
   }, []);
 
   const loadUserProfile = async (user: User) => {
