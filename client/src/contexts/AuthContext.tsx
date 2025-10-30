@@ -23,26 +23,32 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     let unsubscribe: (() => void) | undefined;
     
+    console.log('[AuthContext] Initializing...');
+    
     // First, handle redirect result (if coming back from Google OAuth)
     getRedirectResult(auth)
       .then((result) => {
+        console.log('[AuthContext] getRedirectResult completed:', result ? 'User found' : 'No result');
         if (result?.user) {
           // User just signed in via redirect
-          console.log('Redirect result received, loading profile...');
+          console.log('[AuthContext] Redirect result received, loading profile for:', result.user.uid);
           setUser(result.user);
           return loadUserProfile(result.user);
         }
       })
       .catch((error) => {
-        console.error('Redirect error:', error);
+        console.error('[AuthContext] Redirect error:', error);
       })
       .finally(() => {
+        console.log('[AuthContext] Setting up onAuthStateChanged listener');
         // After handling redirect, listen to auth state changes
         unsubscribe = onAuthStateChanged(auth, async (user) => {
+          console.log('[AuthContext] onAuthStateChanged triggered, user:', user ? user.uid : 'null');
           setUser(user);
           if (user) {
             await loadUserProfile(user);
           } else {
+            console.log('[AuthContext] No user, setting loading to false');
             setProfile(null);
             setLoading(false);
           }
@@ -57,13 +63,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const loadUserProfile = async (user: User) => {
+    console.log('[AuthContext] loadUserProfile called for:', user.uid);
     try {
       const userProfile = await getUserProfile(user.uid);
+      console.log('[AuthContext] Profile loaded:', userProfile ? 'Found' : 'Not found');
       setProfile(userProfile);
     } catch (error) {
-      console.error('Error loading profile:', error);
+      console.error('[AuthContext] Error loading profile:', error);
       setProfile(null);
     } finally {
+      console.log('[AuthContext] Setting loading to false');
       setLoading(false);
     }
   };
