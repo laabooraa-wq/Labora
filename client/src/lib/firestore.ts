@@ -60,6 +60,9 @@ export async function getShift(uid: string, shiftId: string): Promise<Shift | nu
 }
 
 export async function createShift(uid: string, shiftData: InsertShift): Promise<Shift> {
+  console.log('[createShift] Starting with uid:', uid);
+  console.log('[createShift] Shift data:', shiftData);
+  
   const shiftId = crypto.randomUUID();
   const now = new Date().toISOString();
   
@@ -71,8 +74,17 @@ export async function createShift(uid: string, shiftData: InsertShift): Promise<
     updatedAtISO: now,
   };
   
-  await setDoc(doc(db, 'users', uid, 'shifts', shiftId), shift);
-  return shift;
+  console.log('[createShift] Full shift object:', shift);
+  console.log('[createShift] Writing to path: users/' + uid + '/shifts/' + shiftId);
+  
+  try {
+    await setDoc(doc(db, 'users', uid, 'shifts', shiftId), shift);
+    console.log('[createShift] SUCCESS - Shift created');
+    return shift;
+  } catch (error) {
+    console.error('[createShift] ERROR:', error);
+    throw error;
+  }
 }
 
 export async function updateShift(uid: string, shiftId: string, updates: Partial<Shift>): Promise<void> {
