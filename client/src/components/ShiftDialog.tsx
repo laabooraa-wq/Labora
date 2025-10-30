@@ -130,6 +130,11 @@ export default function ShiftDialog({
   });
 
   const handleSubmit = () => {
+    console.log('[handleSubmit] Button clicked!');
+    console.log('[handleSubmit] Profile UID:', profile.uid);
+    console.log('[handleSubmit] Kind:', kind);
+    console.log('[handleSubmit] Date:', dateISO);
+    
     const shiftData: any = {
       uid: profile.uid,
       kind,
@@ -164,9 +169,15 @@ export default function ShiftDialog({
       }
     }
 
+    console.log('[handleSubmit] Built shift data:', shiftData);
+
     // Validate
+    console.log('[handleSubmit] Validating shift...');
     const errors = validateShift(shiftData, profile);
+    console.log('[handleSubmit] Validation errors:', errors);
+    
     if (errors.length > 0) {
+      console.log('[handleSubmit] Validation failed, showing toast');
       toast({
         variant: 'destructive',
         title: 'Error de validación',
@@ -175,9 +186,12 @@ export default function ShiftDialog({
       return;
     }
 
+    console.log('[handleSubmit] Validation passed, calling mutation');
     if (editingShift) {
+      console.log('[handleSubmit] Updating existing shift');
       updateMutation.mutate(shiftData);
     } else {
+      console.log('[handleSubmit] Creating new shift');
       createMutation.mutate(shiftData);
     }
   };
