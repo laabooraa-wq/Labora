@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react';
-import { User, onAuthStateChanged, signInWithRedirect, signOut as firebaseSignOut, getRedirectResult, setPersistence, browserLocalPersistence } from 'firebase/auth';
+import { User, onAuthStateChanged, signInWithPopup, signInWithRedirect, signOut as firebaseSignOut, getRedirectResult, setPersistence, browserLocalPersistence } from 'firebase/auth';
 import { auth, googleProvider } from '@/lib/firebase';
 import { getUserProfile, createUserProfile } from '@/lib/firestore';
 import type { UserProfile } from '@shared/schema';
@@ -81,8 +81,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     try {
       console.log('[AuthContext] Setting persistence to LOCAL');
       await setPersistence(auth, browserLocalPersistence);
-      console.log('[AuthContext] Starting signInWithRedirect');
-      await signInWithRedirect(auth, googleProvider);
+      console.log('[AuthContext] Starting signInWithPopup');
+      const result = await signInWithPopup(auth, googleProvider);
+      console.log('[AuthContext] Popup login successful, loading profile for:', result.user.uid);
+      setUser(result.user);
+      await loadUserProfile(result.user);
     } catch (error) {
       console.error('[AuthContext] Sign in error:', error);
       throw error;
