@@ -71,25 +71,42 @@ export default function ShiftDialog({
 
   const createMutation = useMutation({
     mutationFn: async (data: any) => {
-      // Check for existing shifts on this date
-      const existing = await getShiftsByDate(profile.uid, data.dateISO);
-      const hasSpecialDay = existing.some(s => s.kind !== 'normal');
+      console.log('[createMutation] START - data:', data);
+      console.log('[createMutation] Getting existing shifts for date:', data.dateISO);
       
-      if (hasSpecialDay && data.kind === 'normal') {
-        const confirmed = window.confirm(
-          'Ya existe un día especial en esta fecha. ¿Deseas sustituirlo con un turno normal?'
-        );
-        if (!confirmed) return;
+      try {
+        // Check for existing shifts on this date
+        const existing = await getShiftsByDate(profile.uid, data.dateISO);
+        console.log('[createMutation] Found existing shifts:', existing);
+        
+        const hasSpecialDay = existing.some(s => s.kind !== 'normal');
+        console.log('[createMutation] Has special day:', hasSpecialDay);
+        
+        if (hasSpecialDay && data.kind === 'normal') {
+          const confirmed = window.confirm(
+            'Ya existe un día especial en esta fecha. ¿Deseas sustituirlo con un turno normal?'
+          );
+          console.log('[createMutation] User confirmed:', confirmed);
+          if (!confirmed) return;
+        }
+        
+        console.log('[createMutation] Calling createShift now...');
+        const result = await createShift(profile.uid, data);
+        console.log('[createMutation] createShift result:', result);
+        return result;
+      } catch (error) {
+        console.error('[createMutation] ERROR in mutationFn:', error);
+        throw error;
       }
-      
-      return createShift(profile.uid, data);
     },
     onSuccess: () => {
+      console.log('[createMutation] onSuccess triggered');
       queryClient.invalidateQueries({ queryKey: ['/shifts'] });
       toast({ title: 'Turno creado', description: 'El turno se ha guardado correctamente' });
       onClose();
     },
     onError: (error) => {
+      console.error('[createMutation] onError triggered:', error);
       toast({ 
         variant: 'destructive',
         title: 'Error', 
