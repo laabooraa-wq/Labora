@@ -129,7 +129,7 @@ export default function Home() {
 
       {/* Calendar */}
       <div className="flex-1 overflow-auto">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6 pb-24">
           {isLoading ? (
             <div className="flex items-center justify-center h-64">
               <p className="text-muted-foreground">Cargando calendario...</p>
@@ -150,7 +150,7 @@ export default function Home() {
       {/* FAB */}
       <Button
         size="icon"
-        className="fixed bottom-6 right-6 h-14 w-14 rounded-full shadow-lg sm:bottom-8 sm:right-8"
+        className="fixed bottom-6 right-6 h-14 w-14 rounded-full shadow-lg sm:bottom-8 sm:right-8 z-50"
         onClick={() => handleAddShift()}
         data-testid="button-add-shift"
       >

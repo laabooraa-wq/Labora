@@ -14,14 +14,16 @@ import { formatEuros, formatMinutesAsHours } from '@/lib/money';
 import { formatDateES } from '@/lib/datetime';
 import { computeShiftPay } from '@/lib/calc';
 import { exportToCSV, exportToTXT, exportSummary } from '@/lib/export';
-import { startOfDay, endOfDay, startOfWeek, endOfWeek, startOfMonth, endOfMonth, startOfYear, endOfYear, parse } from 'date-fns';
-import { Download, Upload } from 'lucide-react';
+import { startOfDay, endOfDay, startOfWeek, endOfWeek, startOfMonth, endOfMonth, startOfYear, endOfYear, parse, addDays, subDays, addWeeks, subWeeks, addMonths, subMonths, addYears, subYears, format } from 'date-fns';
+import { es } from 'date-fns/locale';
+import { Download, Upload, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Link } from 'wouter';
 import type { Shift, DayKind } from '@shared/schema';
 
 export default function Shifts() {
   const { profile } = useAuth();
   const [activeTab, setActiveTab] = useState('month');
+  const [currentDate, setCurrentDate] = useState(new Date());
   const [filterKind, setFilterKind] = useState<DayKind | 'all'>('all');
   const [filterExtra, setFilterExtra] = useState<'all' | 'yes' | 'no'>('all');
   const [filterStartDate, setFilterStartDate] = useState('');
@@ -38,6 +40,60 @@ export default function Shifts() {
 
   if (!profile) return null;
 
+  // Navigation handlers
+  const handlePrevPeriod = () => {
+    switch (activeTab) {
+      case 'day':
+        setCurrentDate(subDays(currentDate, 1));
+        break;
+      case 'week':
+        setCurrentDate(subWeeks(currentDate, 1));
+        break;
+      case 'month':
+        setCurrentDate(subMonths(currentDate, 1));
+        break;
+      case 'year':
+        setCurrentDate(subYears(currentDate, 1));
+        break;
+    }
+  };
+
+  const handleNextPeriod = () => {
+    switch (activeTab) {
+      case 'day':
+        setCurrentDate(addDays(currentDate, 1));
+        break;
+      case 'week':
+        setCurrentDate(addWeeks(currentDate, 1));
+        break;
+      case 'month':
+        setCurrentDate(addMonths(currentDate, 1));
+        break;
+      case 'year':
+        setCurrentDate(addYears(currentDate, 1));
+        break;
+    }
+  };
+
+  const handleToday = () => setCurrentDate(new Date());
+
+  const getPeriodLabel = () => {
+    switch (activeTab) {
+      case 'day':
+        return format(currentDate, 'd MMMM yyyy', { locale: es });
+      case 'week':
+        const weekStart = startOfWeek(currentDate, { weekStartsOn: 1 });
+        const weekEnd = endOfWeek(currentDate, { weekStartsOn: 1 });
+        return `${format(weekStart, 'd MMM', { locale: es })} - ${format(weekEnd, 'd MMM yyyy', { locale: es })}`;
+      case 'month':
+        return format(currentDate, 'MMMM yyyy', { locale: es });
+      case 'year':
+        return format(currentDate, 'yyyy');
+      default:
+        return '';
+    }
+  };
+
   // Filter shifts
   const filteredShifts = shifts.filter(shift => {
     if (filterKind !== 'all' && shift.kind !== filterKind) return false;
@@ -48,27 +104,26 @@ export default function Shifts() {
     return true;
   });
 
-  // Group by period
+  // Filter by period based on activeTab and currentDate
   const getShiftsForPeriod = () => {
-    const now = new Date();
     let start: Date, end: Date;
 
     switch (activeTab) {
       case 'day':
-        start = startOfDay(now);
-        end = endOfDay(now);
+        start = startOfDay(currentDate);
+        end = endOfDay(currentDate);
         break;
       case 'week':
-        start = startOfWeek(now, { weekStartsOn: 1 });
-        end = endOfWeek(now, { weekStartsOn: 1 });
+        start = startOfWeek(currentDate, { weekStartsOn: 1 });
+        end = endOfWeek(currentDate, { weekStartsOn: 1 });
         break;
       case 'month':
-        start = startOfMonth(now);
-        end = endOfMonth(now);
+        start = startOfMonth(currentDate);
+        end = endOfMonth(currentDate);
         break;
       case 'year':
-        start = startOfYear(now);
-        end = endOfYear(now);
+        start = startOfYear(currentDate);
+        end = endOfYear(currentDate);
         break;
       default:
         return filteredShifts;
@@ -233,12 +288,46 @@ export default function Shifts() {
 
       {/* Period Tabs */}
       <Tabs value={activeTab} onValueChange={setActiveTab}>
-        <TabsList className="grid w-full grid-cols-4">
-          <TabsTrigger value="day" data-testid="tab-day">Día</TabsTrigger>
-          <TabsTrigger value="week" data-testid="tab-week">Semana</TabsTrigger>
-          <TabsTrigger value="month" data-testid="tab-month">Mes</TabsTrigger>
-          <TabsTrigger value="year" data-testid="tab-year">Año</TabsTrigger>
-        </TabsList>
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4">
+          <TabsList className="grid grid-cols-4 w-full sm:w-auto">
+            <TabsTrigger value="day" data-testid="tab-day">Día</TabsTrigger>
+            <TabsTrigger value="week" data-testid="tab-week">Semana</TabsTrigger>
+            <TabsTrigger value="month" data-testid="tab-month">Mes</TabsTrigger>
+            <TabsTrigger value="year" data-testid="tab-year">Año</TabsTrigger>
+          </TabsList>
+
+          <div className="flex items-center gap-2">
+            <Button
+              variant="outline"
+              size="icon"
+              onClick={handlePrevPeriod}
+              data-testid="button-prev-period"
+            >
+              <ChevronLeft className="h-4 w-4" />
+            </Button>
+
+            <div className="min-w-[200px] text-center font-semibold capitalize">
+              {getPeriodLabel()}
+            </div>
+
+            <Button
+              variant="outline"
+              size="icon"
+              onClick={handleNextPeriod}
+              data-testid="button-next-period"
+            >
+              <ChevronRight className="h-4 w-4" />
+            </Button>
+
+            <Button
+              variant="outline"
+              onClick={handleToday}
+              data-testid="button-today-period"
+            >
+              Hoy
+            </Button>
+          </div>
+        </div>
 
         <TabsContent value={activeTab} className="space-y-6 mt-6">
           {/* Totals Summary */}
