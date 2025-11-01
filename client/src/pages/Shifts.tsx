@@ -290,7 +290,7 @@ export default function Shifts() {
       {/* Google AdSense Banner */}
       <div className="my-6">
         <AdSense
-          adSlot="2468135790"
+          adSlot="3883354970"
           adFormat="horizontal"
           style={{ display: 'block', textAlign: 'center', minHeight: '90px' }}
         />

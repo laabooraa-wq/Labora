@@ -290,7 +290,7 @@ export default function Settings() {
       {/* Google AdSense Banner */}
       <div className="my-6">
         <AdSense
-          adSlot="3579246801"
+          adSlot="9312486065"
           adFormat="horizontal"
           style={{ display: 'block', textAlign: 'center', minHeight: '90px' }}
         />
