@@ -3,8 +3,8 @@ import type { InsertShift, UserProfile, ShiftType } from '@shared/schema';
 import { combineDateAndTime } from './datetime';
 import { format, parse } from 'date-fns';
 
-// Set worker source for pdfjs
-pdfjsLib.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`;
+// Set worker source for pdfjs - using unpkg CDN
+pdfjsLib.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjsLib.version}/build/pdf.worker.min.mjs`;
 
 interface ParsedShiftRow {
   date: string; // YYYY-MM-DD
