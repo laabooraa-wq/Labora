@@ -9,14 +9,17 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useToast } from '@/hooks/use-toast';
-import { LogOut, Save, RefreshCw } from 'lucide-react';
+import { LogOut, Save, RefreshCw, FileUp } from 'lucide-react';
 import type { Theme } from '@shared/schema';
 import AdSense from '@/components/AdSense';
+import PDFImportWizard from '@/components/PDFImportWizard';
 
 export default function Settings() {
   const { profile, signOut, updateProfile: updateAuthProfile } = useAuth();
   const { setTheme } = useTheme();
   const { toast } = useToast();
+
+  const [showPDFImport, setShowPDFImport] = useState(false);
 
   const [formData, setFormData] = useState({
     baseRate: profile?.rates.base.toString() || '',
@@ -296,6 +299,30 @@ export default function Settings() {
         />
       </div>
 
+      {/* PDF Import */}
+      <Card>
+        <CardHeader>
+          <CardTitle>Importar turnos desde PDF</CardTitle>
+          <CardDescription>
+            Importa tus turnos desde otras aplicaciones como WorkTime
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <p className="text-sm text-muted-foreground mb-4">
+            Sube un archivo PDF con tus turnos y selecciona si son turnos generales, horas complementarias o turnos cogidos por compañeros. 
+            Los turnos se añadirán automáticamente a tu calendario.
+          </p>
+          <Button 
+            variant="default" 
+            onClick={() => setShowPDFImport(true)}
+            data-testid="button-open-pdf-import"
+          >
+            <FileUp className="h-4 w-4 mr-2" />
+            Importar desde PDF
+          </Button>
+        </CardContent>
+      </Card>
+
       {/* Preferences */}
       <Card>
         <CardHeader>
@@ -352,6 +379,12 @@ export default function Settings() {
           {updateMutation.isPending ? 'Guardando...' : 'Guardar cambios'}
         </Button>
       </div>
+
+      {/* PDF Import Wizard */}
+      <PDFImportWizard 
+        open={showPDFImport} 
+        onOpenChange={setShowPDFImport}
+      />
     </div>
   );
 }
