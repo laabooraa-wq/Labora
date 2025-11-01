@@ -11,6 +11,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { useToast } from '@/hooks/use-toast';
 import { LogOut, Save, RefreshCw } from 'lucide-react';
 import type { Theme } from '@shared/schema';
+import AdSense from '@/components/AdSense';
 
 export default function Settings() {
   const { profile, signOut, updateProfile: updateAuthProfile } = useAuth();
@@ -285,6 +286,15 @@ export default function Settings() {
           </div>
         </CardContent>
       </Card>
+
+      {/* Google AdSense Banner */}
+      <div className="my-6">
+        <AdSense
+          adSlot="3579246801"
+          adFormat="horizontal"
+          style={{ display: 'block', textAlign: 'center', minHeight: '90px' }}
+        />
+      </div>
 
       {/* Preferences */}
       <Card>

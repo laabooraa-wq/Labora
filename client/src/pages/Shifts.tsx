@@ -19,6 +19,7 @@ import { es } from 'date-fns/locale';
 import { Download, Upload, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Link } from 'wouter';
 import type { Shift, DayKind } from '@shared/schema';
+import AdSense from '@/components/AdSense';
 
 export default function Shifts() {
   const { profile } = useAuth();
@@ -285,6 +286,15 @@ export default function Shifts() {
           </div>
         </CardContent>
       </Card>
+
+      {/* Google AdSense Banner */}
+      <div className="my-6">
+        <AdSense
+          adSlot="2468135790"
+          adFormat="horizontal"
+          style={{ display: 'block', textAlign: 'center', minHeight: '90px' }}
+        />
+      </div>
 
       {/* Period Tabs */}
       <Tabs value={activeTab} onValueChange={setActiveTab}>
