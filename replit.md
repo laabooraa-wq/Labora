@@ -12,9 +12,10 @@ Schedule Paysheet is a web-based shift management and payroll calculation applic
 - Shift management with automatic pay calculations
 - Support for night shifts, overtime, complementary hours, and extra shifts
 - Special day tracking (vacation, rest days, sick leave)
-- CSV/TXT import and export functionality
+- CSV/TXT/PDF import and export functionality
 - Multi-timezone support with Spanish locale formatting
 - Theme support (light/dark/system)
+- Google AdSense integration for monetization
 
 ## User Preferences
 
@@ -103,16 +104,26 @@ Preferred communication style: Simple, everyday language.
 
 ### Import/Export System
 
-**Supported Formats** (`lib/import.ts`, `lib/export.ts`):
-- CSV import/export with Spanish date formatting
-- TXT format for human-readable export
-- Summary reports with totals
-- Papa Parse library for CSV parsing
+**Supported Formats**:
+- **CSV** (`lib/import.ts`, `lib/export.ts`): Import/export with Spanish date formatting using Papa Parse
+- **TXT**: Human-readable export format with summary reports and totals
+- **PDF** (`lib/pdfParser.ts`): Import from WorkTime app format using pdfjs-dist
+
+**PDF Import** (`client/src/components/PDFImportWizard.tsx`):
+- 3-step wizard integrated in Settings page
+- Step 1: Select shift type (generic/complementary/colleague shifts)
+- Step 2: Upload PDF file
+- Step 3: Preview parsed shifts before batch creation
+- Browser-compatible parsing using pdfjs-dist library
+- Extracts date, start time, end time, and breaks from WorkTime PDF tables
+- Handles midnight-crossing shifts automatically
+- Batch creation using `createShiftsBatch` from Firestore
 
 **Import Strategies**:
 - File-based import with validation
 - Date parsing supporting multiple formats
 - Midnight-crossing shift detection
+- Error handling with user feedback via toast notifications
 
 ## External Dependencies
 
@@ -164,6 +175,7 @@ users/{uid}
 
 **Data Processing**:
 - `papaparse`: CSV parsing for imports
+- `pdfjs-dist`: PDF parsing for imports (browser-compatible)
 
 **Development**:
 - `@replit/vite-plugin-*`: Replit-specific development plugins
@@ -171,8 +183,11 @@ users/{uid}
 
 ### Environment Configuration
 
-Required environment variables (stored in `.env` or Replit Secrets):
+Required environment variables (stored in Replit Secrets):
 - `VITE_FIREBASE_API_KEY`: Firebase API key
+- `VITE_FIREBASE_AUTH_DOMAIN`: Firebase auth domain (e.g., project-name.firebaseapp.com)
 - `VITE_FIREBASE_PROJECT_ID`: Firebase project identifier
+- `VITE_FIREBASE_STORAGE_BUCKET`: Firebase storage bucket (e.g., project-name.firebasestorage.app)
+- `VITE_FIREBASE_MSG_SENDER_ID`: Firebase messaging sender ID
 - `VITE_FIREBASE_APP_ID`: Firebase app identifier
 - `DATABASE_URL`: PostgreSQL connection (configured but currently unused)
