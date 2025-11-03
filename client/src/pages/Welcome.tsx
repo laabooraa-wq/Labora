@@ -118,9 +118,10 @@ export default function Welcome() {
           <div className="flex flex-col sm:flex-row justify-between items-center gap-4 text-sm text-muted-foreground">
             <p>© 2025 Schedule Paysheet. Todos los derechos reservados.</p>
             <div className="flex gap-6">
-              <a href="#" className="hover-elevate rounded px-2 py-1">Privacidad</a>
-              <a href="#" className="hover-elevate rounded px-2 py-1">Términos</a>
-              <a href="#" className="hover-elevate rounded px-2 py-1">Contacto</a>
+              <a href="/about" className="hover-elevate rounded px-2 py-1">Acerca de</a>
+              <a href="/privacy" className="hover-elevate rounded px-2 py-1">Privacidad</a>
+              <a href="/terms" className="hover-elevate rounded px-2 py-1">Términos</a>
+              <a href="/contact" className="hover-elevate rounded px-2 py-1">Contacto</a>
             </div>
           </div>
         </div>
