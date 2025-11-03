@@ -11,6 +11,10 @@ import Home from "@/pages/Home";
 import Shifts from "@/pages/Shifts";
 import Settings from "@/pages/Settings";
 import Import from "@/pages/Import";
+import About from "@/pages/About";
+import Contact from "@/pages/Contact";
+import Privacy from "@/pages/Privacy";
+import Terms from "@/pages/Terms";
 import AppLayout from "@/components/AppLayout";
 import NotFound from "@/pages/not-found";
 
@@ -53,7 +57,15 @@ function App() {
         <AuthProvider>
           <TooltipProvider>
             <Toaster />
-            <AuthenticatedRouter />
+            <Switch>
+              {/* Public pages - accessible without authentication */}
+              <Route path="/about" component={About} />
+              <Route path="/contact" component={Contact} />
+              <Route path="/privacy" component={Privacy} />
+              <Route path="/terms" component={Terms} />
+              {/* Authenticated routes */}
+              <Route component={AuthenticatedRouter} />
+            </Switch>
           </TooltipProvider>
         </AuthProvider>
       </ThemeProvider>
