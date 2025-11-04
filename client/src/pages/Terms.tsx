@@ -91,8 +91,8 @@ export default function Terms() {
             <p className="text-muted-foreground leading-relaxed">
               Usted conserva todos los derechos sobre los datos que introduce en ChesPay (turnos, tarifas, etc.). 
               Nos concede una licencia limitada para procesar, almacenar y mostrar estos datos con el único propósito 
-              de proporcionar el servicio. Para más información, consulte nuestra 
-              <Link href="/privacy"><a className="text-primary hover:underline"> Política de Privacidad</a></Link>.
+              de proporcionar el servicio. Para más información, consulte nuestra{" "}
+              <Link href="/privacy" className="text-primary hover:underline">Política de Privacidad</Link>.
             </p>
           </section>
 
