@@ -30,7 +30,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex flex-col h-screen">
       {/* Top Navigation - Desktop */}
-      <header className="hidden sm:block border-b bg-card">
+      <header className="hidden sm:block border-b bg-card sticky top-0 z-40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center gap-8">
@@ -76,7 +76,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
       </header>
 
       {/* Mobile Header */}
-      <header className="sm:hidden border-b bg-card">
+      <header className="sm:hidden border-b bg-card sticky top-0 z-40">
         <div className="flex items-center justify-between px-4 h-14">
           <h1 className="text-lg font-bold">ChesPay</h1>
           <Button
@@ -91,12 +91,12 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
       </header>
 
       {/* Main Content */}
-      <main className="flex-1 overflow-auto">
+      <main className="flex-1 overflow-auto pb-16 sm:pb-0">
         {children}
       </main>
 
       {/* Bottom Navigation - Mobile */}
-      <nav className="sm:hidden border-t bg-card">
+      <nav className="sm:hidden border-t bg-card fixed bottom-0 left-0 right-0 z-40">
         <div className="flex">
           {navItems.map((item) => (
             <Link key={item.path} href={item.path} className="flex-1">

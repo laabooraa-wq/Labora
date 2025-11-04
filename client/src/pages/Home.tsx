@@ -150,7 +150,7 @@ export default function Home() {
       {/* FAB */}
       <Button
         size="icon"
-        className="fixed bottom-20 left-1/2 -translate-x-1/2 h-14 w-14 rounded-full shadow-lg sm:bottom-8 sm:right-8 sm:left-auto sm:translate-x-0 z-50"
+        className="fixed bottom-20 left-4 h-14 w-14 rounded-full shadow-lg sm:bottom-8 sm:right-8 sm:left-auto z-50"
         onClick={() => handleAddShift()}
         data-testid="button-add-shift"
       >
