@@ -1,4 +1,4 @@
-# Design Guidelines: Schedule Paysheet
+# Design Guidelines: ChesPay
 
 ## Design Approach
 
@@ -53,7 +53,7 @@
 ### Navigation & Shell
 
 **App Header** (fixed, 64px height):
-- Left: App logo + title "Schedule Paysheet"
+- Left: App logo + title "ChesPay"
 - Center: Month/Year picker with arrow navigation (calendar view only)
 - Right: User avatar menu (settings, logout)
 - Mobile: Hamburger menu, condensed title

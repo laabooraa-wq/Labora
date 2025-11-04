@@ -9,7 +9,7 @@ export default function About() {
       {/* Header */}
       <header className="border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-          <h1 className="text-xl font-semibold">Schedule Paysheet</h1>
+          <h1 className="text-xl font-semibold">ChesPay</h1>
           <Link href="/">
             <Button variant="ghost" data-testid="button-home">
               Volver al inicio
@@ -23,7 +23,7 @@ export default function About() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-12">
           {/* Hero Section */}
           <div className="space-y-4">
-            <h1 className="text-4xl font-bold tracking-tight">Acerca de Schedule Paysheet</h1>
+            <h1 className="text-4xl font-bold tracking-tight">Acerca de ChesPay</h1>
             <p className="text-xl text-muted-foreground">
               La herramienta que simplifica la gestión de turnos y el cálculo de nóminas para trabajadores.
             </p>
@@ -33,7 +33,7 @@ export default function About() {
           <section className="space-y-4">
             <h2 className="text-2xl font-semibold">Nuestra misión</h2>
             <p className="text-muted-foreground leading-relaxed">
-              Schedule Paysheet nace de la necesidad de proporcionar a los trabajadores una forma sencilla y efectiva 
+              ChesPay nace de la necesidad de proporcionar a los trabajadores una forma sencilla y efectiva 
               de gestionar sus turnos laborales y calcular sus ingresos. Entendemos que llevar un control manual de 
               las horas trabajadas, turnos nocturnos, horas extras y complementarias puede ser complejo y propenso a errores.
             </p>
@@ -125,7 +125,7 @@ export default function About() {
           <section className="space-y-4">
             <h2 className="text-2xl font-semibold">Tecnología</h2>
             <p className="text-muted-foreground leading-relaxed">
-              Schedule Paysheet está desarrollado con tecnologías web modernas que garantizan rapidez, seguridad y 
+              ChesPay está desarrollado con tecnologías web modernas que garantizan rapidez, seguridad y 
               facilidad de uso. Utilizamos React para una interfaz de usuario fluida, Firebase para autenticación 
               segura con Google y almacenamiento en la nube, y algoritmos de cálculo precisos que consideran cada 
               minuto trabajado según el tipo de turno.
@@ -140,7 +140,7 @@ export default function About() {
           <section className="bg-muted/50 rounded-lg p-8 text-center space-y-4">
             <h2 className="text-2xl font-semibold">¿Tienes preguntas o sugerencias?</h2>
             <p className="text-muted-foreground">
-              Nos encantaría escucharte. Tu feedback nos ayuda a mejorar Schedule Paysheet.
+              Nos encantaría escucharte. Tu feedback nos ayuda a mejorar ChesPay.
             </p>
             <Link href="/contact">
               <Button size="lg" data-testid="button-contact">
@@ -155,7 +155,7 @@ export default function About() {
       <footer className="border-t py-6 mt-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col sm:flex-row justify-between items-center gap-4 text-sm text-muted-foreground">
-            <p>© 2025 Schedule Paysheet. Todos los derechos reservados.</p>
+            <p>© 2025 ChesPay. Todos los derechos reservados.</p>
             <div className="flex gap-6">
               <Link href="/privacy">
                 <a className="hover-elevate rounded px-2 py-1">Privacidad</a>

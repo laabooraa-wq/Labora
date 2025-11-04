@@ -9,7 +9,7 @@ export default function Contact() {
       {/* Header */}
       <header className="border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-          <h1 className="text-xl font-semibold">Schedule Paysheet</h1>
+          <h1 className="text-xl font-semibold">ChesPay</h1>
           <Link href="/">
             <Button variant="ghost" data-testid="button-home">
               Volver al inicio
@@ -43,11 +43,11 @@ export default function Contact() {
               </CardHeader>
               <CardContent className="text-center">
                 <a 
-                  href="mailto:support@schedulepaysheet.com" 
+                  href="mailto:support@chespay.com" 
                   className="text-primary hover:underline"
                   data-testid="link-email"
                 >
-                  support@schedulepaysheet.com
+                  support@chespay.com
                 </a>
               </CardContent>
             </Card>
@@ -64,11 +64,11 @@ export default function Contact() {
               </CardHeader>
               <CardContent className="text-center">
                 <a 
-                  href="mailto:feedback@schedulepaysheet.com" 
+                  href="mailto:feedback@chespay.com" 
                   className="text-primary hover:underline"
                   data-testid="link-feedback"
                 >
-                  feedback@schedulepaysheet.com
+                  feedback@chespay.com
                 </a>
               </CardContent>
             </Card>
@@ -85,11 +85,11 @@ export default function Contact() {
               </CardHeader>
               <CardContent className="text-center">
                 <a 
-                  href="mailto:help@schedulepaysheet.com" 
+                  href="mailto:help@chespay.com" 
                   className="text-primary hover:underline"
                   data-testid="link-support"
                 >
-                  help@schedulepaysheet.com
+                  help@chespay.com
                 </a>
               </CardContent>
             </Card>
@@ -105,7 +105,7 @@ export default function Contact() {
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground">
-                  Schedule Paysheet analiza cada turno minuto a minuto, aplicando las tarifas correspondientes 
+                  ChesPay analiza cada turno minuto a minuto, aplicando las tarifas correspondientes 
                   según el tipo de turno (nocturno, extra, complementario) y calculando automáticamente los descansos. 
                   Puedes personalizar las tarifas en la página de Configuración.
                 </p>
@@ -131,7 +131,7 @@ export default function Contact() {
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground">
-                  Sí. Schedule Paysheet soporta importación de turnos desde archivos CSV, TXT y PDF. 
+                  Sí. ChesPay soporta importación de turnos desde archivos CSV, TXT y PDF. 
                   Si usas la aplicación WorkTime, puedes importar directamente tus turnos desde el PDF exportado.
                 </p>
               </CardContent>
@@ -143,7 +143,7 @@ export default function Contact() {
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground">
-                  Sí, Schedule Paysheet es completamente gratuito. La aplicación se mantiene mediante anuncios 
+                  Sí, ChesPay es completamente gratuito. La aplicación se mantiene mediante anuncios 
                   no intrusivos que ayudan a cubrir los costos de desarrollo y mantenimiento.
                 </p>
               </CardContent>
@@ -165,7 +165,7 @@ export default function Contact() {
       <footer className="border-t py-6 mt-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col sm:flex-row justify-between items-center gap-4 text-sm text-muted-foreground">
-            <p>© 2025 Schedule Paysheet. Todos los derechos reservados.</p>
+            <p>© 2025 ChesPay. Todos los derechos reservados.</p>
             <div className="flex gap-6">
               <Link href="/about">
                 <a className="hover-elevate rounded px-2 py-1">Acerca de</a>

@@ -34,7 +34,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center gap-8">
-              <h1 className="text-xl font-bold">Schedule Paysheet</h1>
+              <h1 className="text-xl font-bold">ChesPay</h1>
               
               <nav className="flex gap-1">
                 {navItems.map((item) => (
@@ -78,7 +78,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
       {/* Mobile Header */}
       <header className="sm:hidden border-b bg-card">
         <div className="flex items-center justify-between px-4 h-14">
-          <h1 className="text-lg font-bold">Schedule Paysheet</h1>
+          <h1 className="text-lg font-bold">ChesPay</h1>
           <Button
             variant="ghost"
             size="icon"

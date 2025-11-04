@@ -7,7 +7,7 @@ export default function Terms() {
       {/* Header */}
       <header className="border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-          <h1 className="text-xl font-semibold">Schedule Paysheet</h1>
+          <h1 className="text-xl font-semibold">ChesPay</h1>
           <Link href="/">
             <Button variant="ghost" data-testid="button-home">
               Volver al inicio
@@ -27,7 +27,7 @@ export default function Terms() {
           <section className="space-y-4">
             <h2 className="text-2xl font-semibold">1. Aceptación de los términos</h2>
             <p className="text-muted-foreground leading-relaxed">
-              Al acceder y utilizar Schedule Paysheet ("la Aplicación", "el Servicio"), usted acepta estar sujeto a 
+              Al acceder y utilizar ChesPay ("la Aplicación", "el Servicio"), usted acepta estar sujeto a 
               estos Términos y Condiciones de Uso. Si no está de acuerdo con alguno de estos términos, 
               no debe utilizar la Aplicación.
             </p>
@@ -36,7 +36,7 @@ export default function Terms() {
           <section className="space-y-4">
             <h2 className="text-2xl font-semibold">2. Descripción del servicio</h2>
             <p className="text-muted-foreground leading-relaxed">
-              Schedule Paysheet es una aplicación web gratuita que permite a los usuarios gestionar sus turnos laborales 
+              ChesPay es una aplicación web gratuita que permite a los usuarios gestionar sus turnos laborales 
               y calcular automáticamente sus ingresos basándose en tarifas personalizables. El servicio incluye:
             </p>
             <ul className="list-disc list-inside text-muted-foreground space-y-2 ml-4">
@@ -52,7 +52,7 @@ export default function Terms() {
             <h2 className="text-2xl font-semibold">3. Requisitos de uso</h2>
             <h3 className="text-xl font-semibold">3.1 Cuenta de usuario</h3>
             <p className="text-muted-foreground leading-relaxed">
-              Para utilizar Schedule Paysheet, debe:
+              Para utilizar ChesPay, debe:
             </p>
             <ul className="list-disc list-inside text-muted-foreground space-y-2 ml-4">
               <li>Tener al menos 16 años de edad</li>
@@ -79,9 +79,9 @@ export default function Terms() {
           <section className="space-y-4">
             <h2 className="text-2xl font-semibold">4. Propiedad intelectual</h2>
             <p className="text-muted-foreground leading-relaxed">
-              Todos los derechos de propiedad intelectual relacionados con Schedule Paysheet, incluyendo pero no 
+              Todos los derechos de propiedad intelectual relacionados con ChesPay, incluyendo pero no 
               limitándose a código fuente, diseño, logotipos, marcas comerciales y contenido, son propiedad exclusiva 
-              de Schedule Paysheet o de sus licenciantes. No se concede ningún derecho de propiedad intelectual 
+              de ChesPay o de sus licenciantes. No se concede ningún derecho de propiedad intelectual 
               excepto el derecho limitado de uso descrito en estos términos.
             </p>
           </section>
@@ -89,7 +89,7 @@ export default function Terms() {
           <section className="space-y-4">
             <h2 className="text-2xl font-semibold">5. Datos del usuario</h2>
             <p className="text-muted-foreground leading-relaxed">
-              Usted conserva todos los derechos sobre los datos que introduce en Schedule Paysheet (turnos, tarifas, etc.). 
+              Usted conserva todos los derechos sobre los datos que introduce en ChesPay (turnos, tarifas, etc.). 
               Nos concede una licencia limitada para procesar, almacenar y mostrar estos datos con el único propósito 
               de proporcionar el servicio. Para más información, consulte nuestra 
               <Link href="/privacy"><a className="text-primary hover:underline"> Política de Privacidad</a></Link>.
@@ -99,13 +99,13 @@ export default function Terms() {
           <section className="space-y-4">
             <h2 className="text-2xl font-semibold">6. Exactitud de los cálculos</h2>
             <p className="text-muted-foreground leading-relaxed">
-              Schedule Paysheet calcula automáticamente los ingresos basándose en los datos que usted proporciona 
+              ChesPay calcula automáticamente los ingresos basándose en los datos que usted proporciona 
               (turnos, tarifas, horas). Si bien nos esforzamos por proporcionar cálculos precisos:
             </p>
             <ul className="list-disc list-inside text-muted-foreground space-y-2 ml-4">
               <li>Usted es responsable de verificar la exactitud de todos los datos introducidos</li>
               <li>Usted es responsable de verificar que los cálculos sean correctos</li>
-              <li>Schedule Paysheet es una herramienta de apoyo y no sustituye la nómina oficial de su empleador</li>
+              <li>ChesPay es una herramienta de apoyo y no sustituye la nómina oficial de su empleador</li>
               <li>No nos hacemos responsables de discrepancias en los cálculos debidas a datos incorrectos</li>
             </ul>
             <p className="text-muted-foreground leading-relaxed mt-4">
@@ -116,7 +116,7 @@ export default function Terms() {
           <section className="space-y-4">
             <h2 className="text-2xl font-semibold">7. Disponibilidad del servicio</h2>
             <p className="text-muted-foreground leading-relaxed">
-              Hacemos todo lo posible para mantener Schedule Paysheet disponible 24/7, pero no garantizamos:
+              Hacemos todo lo posible para mantener ChesPay disponible 24/7, pero no garantizamos:
             </p>
             <ul className="list-disc list-inside text-muted-foreground space-y-2 ml-4">
               <li>Que el servicio estará disponible de forma ininterrumpida</li>
@@ -132,7 +132,7 @@ export default function Terms() {
           <section className="space-y-4">
             <h2 className="text-2xl font-semibold">8. Publicidad</h2>
             <p className="text-muted-foreground leading-relaxed">
-              Schedule Paysheet es un servicio gratuito financiado mediante anuncios de Google AdSense. 
+              ChesPay es un servicio gratuito financiado mediante anuncios de Google AdSense. 
               Al utilizar la Aplicación, acepta que se muestren anuncios. Estos anuncios pueden ser personalizados 
               según sus intereses. Puede gestionar sus preferencias de anuncios mediante 
               <a href="https://adssettings.google.com/" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline"> la configuración de Google</a>.
@@ -145,7 +145,7 @@ export default function Terms() {
               En la máxima medida permitida por la ley:
             </p>
             <ul className="list-disc list-inside text-muted-foreground space-y-2 ml-4">
-              <li>Schedule Paysheet se proporciona "tal cual" y "según disponibilidad"</li>
+              <li>ChesPay se proporciona "tal cual" y "según disponibilidad"</li>
               <li>No garantizamos que el servicio cumplirá con sus requisitos específicos</li>
               <li>No seremos responsables de ningún daño directo, indirecto, incidental, especial o consecuente</li>
               <li>No seremos responsables de pérdidas de datos, pérdidas de ingresos o pérdidas económicas</li>
@@ -156,7 +156,7 @@ export default function Terms() {
           <section className="space-y-4">
             <h2 className="text-2xl font-semibold">10. Terminación</h2>
             <p className="text-muted-foreground leading-relaxed">
-              Usted puede dejar de usar Schedule Paysheet y eliminar su cuenta en cualquier momento desde la 
+              Usted puede dejar de usar ChesPay y eliminar su cuenta en cualquier momento desde la 
               página de Configuración. Nos reservamos el derecho de suspender o cancelar su cuenta si:
             </p>
             <ul className="list-disc list-inside text-muted-foreground space-y-2 ml-4">
@@ -174,7 +174,7 @@ export default function Terms() {
             <p className="text-muted-foreground leading-relaxed">
               Nos reservamos el derecho de modificar estos Términos y Condiciones en cualquier momento. 
               Le notificaremos de cambios significativos mediante un aviso en la Aplicación o por correo electrónico. 
-              El uso continuado de Schedule Paysheet después de dichos cambios constituye su aceptación de los 
+              El uso continuado de ChesPay después de dichos cambios constituye su aceptación de los 
               nuevos términos.
             </p>
           </section>
@@ -193,14 +193,14 @@ export default function Terms() {
               Si tiene preguntas sobre estos Términos y Condiciones, puede contactarnos en:
             </p>
             <ul className="list-none text-muted-foreground space-y-2 ml-4">
-              <li>Email: <a href="mailto:legal@schedulepaysheet.com" className="text-primary hover:underline">legal@schedulepaysheet.com</a></li>
-              <li>Página de contacto: <Link href="/contact"><a className="text-primary hover:underline">schedulepaysheet.com/contact</a></Link></li>
+              <li>Email: <a href="mailto:legal@chespay.com" className="text-primary hover:underline">legal@chespay.com</a></li>
+              <li>Página de contacto: <Link href="/contact"><a className="text-primary hover:underline">chespay.com/contact</a></Link></li>
             </ul>
           </section>
 
           <section className="bg-muted/50 rounded-lg p-6 mt-8">
             <p className="text-sm text-muted-foreground">
-              Al utilizar Schedule Paysheet, usted reconoce haber leído, entendido y aceptado estos Términos y Condiciones 
+              Al utilizar ChesPay, usted reconoce haber leído, entendido y aceptado estos Términos y Condiciones 
               en su totalidad.
             </p>
           </section>
@@ -211,7 +211,7 @@ export default function Terms() {
       <footer className="border-t py-6 mt-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col sm:flex-row justify-between items-center gap-4 text-sm text-muted-foreground">
-            <p>© 2025 Schedule Paysheet. Todos los derechos reservados.</p>
+            <p>© 2025 ChesPay. Todos los derechos reservados.</p>
             <div className="flex gap-6">
               <Link href="/about">
                 <a className="hover-elevate rounded px-2 py-1">Acerca de</a>
