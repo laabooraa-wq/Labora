@@ -7,7 +7,7 @@ export default function Privacy() {
       {/* Header */}
       <header className="border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-          <h1 className="text-xl font-semibold">Schedule Paysheet</h1>
+          <h1 className="text-xl font-semibold">ChesPay</h1>
           <Link href="/">
             <Button variant="ghost" data-testid="button-home">
               Volver al inicio
@@ -27,7 +27,7 @@ export default function Privacy() {
           <section className="space-y-4 prose dark:prose-invert max-w-none">
             <h2 className="text-2xl font-semibold">1. Introducción</h2>
             <p className="text-muted-foreground leading-relaxed">
-              En Schedule Paysheet, respetamos su privacidad y nos comprometemos a proteger sus datos personales. 
+              En ChesPay, respetamos su privacidad y nos comprometemos a proteger sus datos personales. 
               Esta Política de Privacidad explica cómo recopilamos, utilizamos, almacenamos y protegemos su información 
               cuando utiliza nuestra aplicación web de gestión de turnos y cálculo de nóminas.
             </p>
@@ -78,7 +78,7 @@ export default function Privacy() {
               Utilizamos su información para:
             </p>
             <ul className="list-disc list-inside text-muted-foreground space-y-2 ml-4">
-              <li>Proporcionar y mantener el servicio de Schedule Paysheet</li>
+              <li>Proporcionar y mantener el servicio de ChesPay</li>
               <li>Autenticar su identidad y gestionar su cuenta</li>
               <li>Calcular automáticamente sus ingresos según los turnos registrados</li>
               <li>Almacenar y sincronizar sus datos de turnos en la nube</li>
@@ -151,14 +151,14 @@ export default function Privacy() {
             </ul>
             <p className="text-muted-foreground leading-relaxed mt-4">
               Para ejercer cualquiera de estos derechos, contacte con nosotros en: 
-              <a href="mailto:privacy@schedulepaysheet.com" className="text-primary hover:underline"> privacy@schedulepaysheet.com</a>
+              <a href="mailto:privacy@chespay.com" className="text-primary hover:underline"> privacy@chespay.com</a>
             </p>
           </section>
 
           <section className="space-y-4">
             <h2 className="text-2xl font-semibold">8. Retención de datos</h2>
             <p className="text-muted-foreground leading-relaxed">
-              Conservamos sus datos personales mientras mantenga una cuenta activa en Schedule Paysheet. 
+              Conservamos sus datos personales mientras mantenga una cuenta activa en ChesPay. 
               Si elimina su cuenta, sus datos se eliminarán permanentemente de nuestros servidores en un plazo de 30 días, 
               excepto cuando la ley nos obligue a conservarlos por un período más largo.
             </p>
@@ -167,7 +167,7 @@ export default function Privacy() {
           <section className="space-y-4">
             <h2 className="text-2xl font-semibold">9. Menores de edad</h2>
             <p className="text-muted-foreground leading-relaxed">
-              Schedule Paysheet no está dirigido a menores de 16 años. No recopilamos intencionalmente información 
+              ChesPay no está dirigido a menores de 16 años. No recopilamos intencionalmente información 
               personal de menores. Si tiene conocimiento de que un menor ha proporcionado datos personales, 
               contacte con nosotros inmediatamente.
             </p>
@@ -189,8 +189,8 @@ export default function Privacy() {
               puede contactarnos en:
             </p>
             <ul className="list-none text-muted-foreground space-y-2 ml-4">
-              <li>Email: <a href="mailto:privacy@schedulepaysheet.com" className="text-primary hover:underline">privacy@schedulepaysheet.com</a></li>
-              <li>Página de contacto: <Link href="/contact"><a className="text-primary hover:underline">schedulepaysheet.com/contact</a></Link></li>
+              <li>Email: <a href="mailto:privacy@chespay.com" className="text-primary hover:underline">privacy@chespay.com</a></li>
+              <li>Página de contacto: <Link href="/contact"><a className="text-primary hover:underline">chespay.com/contact</a></Link></li>
             </ul>
           </section>
         </div>
@@ -200,7 +200,7 @@ export default function Privacy() {
       <footer className="border-t py-6 mt-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col sm:flex-row justify-between items-center gap-4 text-sm text-muted-foreground">
-            <p>© 2025 Schedule Paysheet. Todos los derechos reservados.</p>
+            <p>© 2025 ChesPay. Todos los derechos reservados.</p>
             <div className="flex gap-6">
               <Link href="/about">
                 <a className="hover-elevate rounded px-2 py-1">Acerca de</a>

@@ -1,8 +1,8 @@
-# Schedule Paysheet
+# ChesPay
 
 ## Overview
 
-Schedule Paysheet is a web-based shift management and payroll calculation application designed for workers to track their work schedules, calculate earnings, and manage special days (vacation, sick leave, etc.). The application provides a monthly calendar view with detailed shift tracking, automatic calculation of base pay, overtime, night shifts, and complementary hours based on configurable hourly rates.
+ChesPay is a web-based shift management and payroll calculation application designed for workers to track their work schedules, calculate earnings, and manage special days (vacation, sick leave, etc.). The application provides a monthly calendar view with detailed shift tracking, automatic calculation of base pay, overtime, night shifts, and complementary hours based on configurable hourly rates.
 
 **Core Purpose**: Enable workers to independently manage their shift schedules and automatically calculate their earnings based on customizable work contracts, rates, and shift types.
 
